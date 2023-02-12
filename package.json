@@ -1,0 +1,50 @@
+{
+  "name": "@codrjs/template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "repository": "git@github.com:CodrJS/ts-npm-template.git",
+  "author": "Dylan Bulmer <dylan@dylanbulmer.com>",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "test": "jest --config jest.config.json --passWithNoTests --coverage",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build": "yarn clean && yarn build:cjs && yarn build:esm && ./bin/post-build.sh",
+    "clean": "rm -rf ./dist",
+    "format": "prettier --write \"src/**/*.(ts|js)\"",
+    "lint": "eslint -c .eslintrc.json --ignore-path .eslintignore --ext .ts src",
+    "preversion": "yarn lint",
+    "version": "yarn format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "convert": "taplo get -f src/examples/project.toml -o json > src/examples/project.json"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.3.22",
+    "@swc/jest": "^0.2.24",
+    "@types/jest": "^29.0.3",
+    "@types/node": "^18.7.21",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^27.0.4",
+    "jest": "^29.0.3",
+    "prettier": "^2.7.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+  }
+}
