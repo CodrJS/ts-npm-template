@@ -28,8 +28,6 @@ jobs:
     name: Test
     needs: build
     runs-on: ubuntu-latest
-    env:
-      SECRET: ${{ secrets.SECRET }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
