@@ -2,6 +2,6 @@
   "transform": {
     "^.+\\.(t|j)sx?$": "@swc/jest"
   },
-  "testRegex": "/lib/cjs/__tests__/.*\\.(test|spec)\\.(jsx?|tsx?)$",
+  "testRegex": "/dist/cjs/__tests__/.*\\.(test|spec)\\.(jsx?|tsx?)$",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
 }
