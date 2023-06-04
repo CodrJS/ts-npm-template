@@ -5,6 +5,12 @@ name: Node.js Package
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "main"
   release:
     types: [created]
 
@@ -17,6 +23,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
+          cache: "yarn"
       - run: yarn
       - run: yarn build
       - uses: actions/upload-artifact@v3
@@ -33,6 +40,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
+          cache: "yarn"
       - uses: actions/download-artifact@v3
         with:
           name: dist
@@ -40,7 +48,8 @@ jobs:
       - run: yarn
       - run: yarn test
 
-  publish-gpr:
+  publish-npm:
+    if: github.event_name == 'release' && github.event.action == 'created'
     name: Publish to NPM
     needs: test
     runs-on: ubuntu-latest
@@ -49,6 +58,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
+          cache: "yarn"
           registry-url: https://registry.npmjs.org
           # Defaults to the user or organization that owns the workflow file
           scope: "@codrjs"
